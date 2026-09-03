@@ -1,0 +1,32 @@
+---
+import type { Stream } from '../data/streams';
+
+interface Props {
+  stream: Stream;
+}
+
+const { stream } = Astro.props;
+const hasSource = stream.src.trim().length > 0;
+---
+
+<figure style="margin: 0 0 1.5rem;">
+  <div class="stream">
+    {!hasSource && <span>Источник не подключён</span>}
+    {hasSource && stream.kind === 'iframe' && (
+      <iframe
+        src={stream.src}
+        title={stream.title}
+        allow="autoplay; fullscreen; picture-in-picture"
+        allowfullscreen
+        loading="lazy"
+      ></iframe>
+    )}
+    {hasSource && stream.kind === 'hls' && (
+      <video controls muted playsinline data-hls={stream.src}></video>
+    )}
+  </div>
+  <figcaption class="meta" style="margin-top: 0.5rem;">
+    {stream.title} &middot; {stream.place}
+    {stream.note && <> &middot; {stream.note}</>}
+  </figcaption>
+</figure>

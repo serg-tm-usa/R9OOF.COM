@@ -1,0 +1,47 @@
+---
+import Base from '../../layouts/Base.astro';
+import StreamEmbed from '../../components/StreamEmbed.astro';
+import { screenBroadcast } from '../../data/streams';
+
+const isLive = screenBroadcast.src.trim().length > 0;
+---
+
+<Base
+  title="Эфир"
+  description="Трансляция экрана рабочего места R9OOF: панорама, журнал, управление трансивером."
+>
+  <h1>Эфир</h1>
+  <p class="lede">
+    Трансляция экрана рабочего места во время связи. Видно панораму диапазона,
+    аппаратный журнал и работу с трансивером, поэтому за ходом связи можно следить
+    со стороны.
+  </p>
+
+  {isLive ? (
+    <StreamEmbed stream={screenBroadcast} />
+  ) : (
+    <div class="placeholder">
+      <p><strong>Трансляция не настроена.</strong></p>
+      <p>
+        Адрес потока задаётся в файле <code>src/data/streams.ts</code>, поле
+        <code>screenBroadcast.src</code>.
+      </p>
+    </div>
+  )}
+
+  <section>
+    <h2>Как это устроено</h2>
+    <p>
+      Захват экрана или отдельного окна ведётся программой на рабочем компьютере и
+      отдаётся на сервис трансляции. Сайт только встраивает готовый плеер, поэтому
+      нагрузка на сайт не зависит от числа зрителей.
+    </p>
+    <div class="placeholder">
+      <p><strong>Решение ещё не выбрано.</strong></p>
+      <p>
+        Здесь появится описание выбранной схемы: программа захвата, сервис вещания и
+        задержка сигнала.
+      </p>
+    </div>
+  </section>
+</Base>

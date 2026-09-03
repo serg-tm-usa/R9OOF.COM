@@ -1,0 +1,54 @@
+---
+import Base from '../../layouts/Base.astro';
+import StreamEmbed from '../../components/StreamEmbed.astro';
+import { cameras } from '../../data/streams';
+
+const connected = cameras.filter((c) => c.src.trim().length > 0);
+---
+
+<Base
+  title="Детская радиошкола"
+  description="Занятия детской радиошколы R9OOF и трансляции из класса."
+>
+  <h1>Детская радиошкола</h1>
+  <p class="lede">
+    Занятия для тех, кто хочет выйти в эфир. Теория, работа на реальной аппаратуре и
+    выезды. Из класса ведётся трансляция, поэтому родители видят, чем занят ребёнок.
+  </p>
+
+  <section>
+    <h2>Трансляция из класса</h2>
+    {connected.length === 0 ? (
+      <div class="placeholder">
+        <p><strong>Камеры пока не подключены.</strong></p>
+        <p>
+          Ссылки на потоки задаются в файле <code>src/data/streams.ts</code>.
+          Поддерживаются два варианта: встраиваемый плеер сервиса и прямая ссылка на
+          поток HLS. Как только в поле <code>src</code> появится адрес, плеер
+          отобразится на этом месте автоматически.
+        </p>
+      </div>
+    ) : (
+      connected.map((camera) => <StreamEmbed stream={camera} />)
+    )}
+  </section>
+
+  <section>
+    <h2>Расписание</h2>
+    <div class="placeholder">
+      <p><strong>Раздел ждёт содержания.</strong></p>
+      <p>Дни занятий, возрастные группы, адрес и порядок записи.</p>
+    </div>
+  </section>
+
+  <section>
+    <h2>Программа обучения</h2>
+    <div class="placeholder">
+      <p><strong>Раздел ждёт содержания.</strong></p>
+      <p>
+        Темы занятий, от азов электротехники и правил работы в эфире до
+        самостоятельной связи и подготовки к получению позывного.
+      </p>
+    </div>
+  </section>
+</Base>

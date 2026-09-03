@@ -1,0 +1,75 @@
+---
+import Base from '../layouts/Base.astro';
+import { getCollection } from 'astro:content';
+import { formatRange, formatDate } from '../lib/format';
+
+const dx = (await getCollection('dx', ({ data }) => !data.draft))
+  .sort((a, b) => b.data.dateStart.getTime() - a.data.dateStart.getTime())
+  .slice(0, 3);
+
+const rda = (await getCollection('rda', ({ data }) => !data.draft))
+  .sort((a, b) => b.data.date.getTime() - a.data.date.getTime())
+  .slice(0, 3);
+
+const sections = [
+  { href: '/dx', title: 'DX-экспедиции', text: 'Отчёты о выездах: где работали, чем работали, что получилось.' },
+  { href: '/rda', title: 'Хроника RDA', text: 'Активированные районы, даты, статистика связей.' },
+  { href: '/school', title: 'Детская радиошкола', text: 'Занятия, расписание и трансляции с камер в классе.' },
+  { href: '/live', title: 'Эфир', text: 'Трансляция экрана и рабочих программ во время связи.' },
+  { href: '/handbook', title: 'Инженерный справочник', text: 'Мануалы оборудования, схемы, расчёты, рабочие заметки.' },
+  { href: '/beginners', title: 'Начинающим', text: 'С чего начать, как получить позывной, первый эфир.' },
+];
+---
+
+<Base title="R9OOF">
+  <section>
+    <p class="meta">Любительская радиостанция</p>
+    <h1>R9OOF</h1>
+    <p class="lede">
+      DX-экспедиции, активации RDA, детская радиошкола и инженерные материалы по
+      технике. Здесь собрано то, что делается в эфире и вокруг него.
+    </p>
+  </section>
+
+  <section>
+    <h2>Разделы</h2>
+    <ul class="grid">
+      {sections.map((s) => (
+        <li class="card">
+          <h3><a href={s.href}>{s.title}</a></h3>
+          <p>{s.text}</p>
+        </li>
+      ))}
+    </ul>
+  </section>
+
+  {dx.length > 0 && (
+    <section>
+      <h2>Последние экспедиции</h2>
+      <ul class="grid">
+        {dx.map((entry) => (
+          <li class="card">
+            <p class="meta">{formatRange(entry.data.dateStart, entry.data.dateEnd)}</p>
+            <h3><a href={`/dx/${entry.id}`}>{entry.data.title}</a></h3>
+            <p>{entry.data.summary}</p>
+          </li>
+        ))}
+      </ul>
+    </section>
+  )}
+
+  {rda.length > 0 && (
+    <section>
+      <h2>Последние выезды RDA</h2>
+      <ul class="grid">
+        {rda.map((entry) => (
+          <li class="card">
+            <p class="meta">{formatDate(entry.data.date)}</p>
+            <h3><a href={`/rda/${entry.id}`}>{entry.data.title}</a></h3>
+            <p>{entry.data.summary}</p>
+          </li>
+        ))}
+      </ul>
+    </section>
+  )}
+</Base>

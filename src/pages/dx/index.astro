@@ -1,0 +1,41 @@
+---
+import Base from '../../layouts/Base.astro';
+import { getCollection } from 'astro:content';
+import { formatRange } from '../../lib/format';
+
+const entries = (await getCollection('dx', ({ data }) => !data.draft)).sort(
+  (a, b) => b.data.dateStart.getTime() - a.data.dateStart.getTime()
+);
+---
+
+<Base title="DX-экспедиции" description="Отчёты о DX-экспедициях R9OOF.">
+  <h1>DX-экспедиции</h1>
+  <p class="lede">
+    Каждая экспедиция это отдельная страница: место, состав, аппаратура, антенны,
+    условия прохождения и результат.
+  </p>
+
+  {entries.length === 0 ? (
+    <div class="placeholder">
+      <p><strong>Пока пусто.</strong></p>
+      <p>
+        Чтобы добавить экспедицию, положите файл в <code>src/content/dx/</code>.
+        Имя файла станет адресом страницы.
+      </p>
+    </div>
+  ) : (
+    <ul class="grid">
+      {entries.map((entry) => (
+        <li class="card">
+          <p class="meta">{formatRange(entry.data.dateStart, entry.data.dateEnd)}</p>
+          <h3><a href={`/dx/${entry.id}`}>{entry.data.title}</a></h3>
+          {entry.data.location && <p class="meta">{entry.data.location}</p>}
+          <p>{entry.data.summary}</p>
+          {entry.data.bands.length > 0 && (
+            <p>{entry.data.bands.map((b) => <span class="tag">{b}</span>)}</p>
+          )}
+        </li>
+      ))}
+    </ul>
+  )}
+</Base>

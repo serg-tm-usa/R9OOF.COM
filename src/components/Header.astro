@@ -1,0 +1,32 @@
+---
+// Шапка сайта. Разделы правятся здесь, в одном месте.
+const nav = [
+  { href: '/', label: 'Главная' },
+  { href: '/dx', label: 'DX-экспедиции' },
+  { href: '/rda', label: 'RDA' },
+  { href: '/school', label: 'Радиошкола' },
+  { href: '/live', label: 'Эфир' },
+  { href: '/handbook', label: 'Справочник' },
+  { href: '/beginners', label: 'Начинающим' },
+];
+
+const path = Astro.url.pathname.replace(/\/+$/, '') || '/';
+
+function isCurrent(href: string) {
+  if (href === '/') return path === '/';
+  return path === href || path.startsWith(href + '/');
+}
+---
+
+<header class="site-header">
+  <div class="wrap">
+    <a class="callsign" href="/">R9OOF</a>
+    <nav class="site-nav" aria-label="Основные разделы">
+      {nav.map((item) => (
+        <a href={item.href} aria-current={isCurrent(item.href) ? 'page' : undefined}>
+          {item.label}
+        </a>
+      ))}
+    </nav>
+  </div>
+</header>

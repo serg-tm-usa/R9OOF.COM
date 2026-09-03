@@ -1,0 +1,43 @@
+---
+import Base from '../../layouts/Base.astro';
+import { getCollection, render } from 'astro:content';
+import { formatRange } from '../../lib/format';
+
+export async function getStaticPaths() {
+  const entries = await getCollection('dx');
+  return entries.map((entry) => ({
+    params: { slug: entry.id },
+    props: { entry },
+  }));
+}
+
+const { entry } = Astro.props;
+const { Content } = await render(entry);
+---
+
+<Base title={entry.data.title} description={entry.data.summary}>
+  <p class="meta">
+    <a href="/dx">DX-экспедиции</a> &middot; {formatRange(entry.data.dateStart, entry.data.dateEnd)}
+  </p>
+  <h1>{entry.data.title}</h1>
+  <p class="lede">{entry.data.summary}</p>
+
+  <table>
+    <tbody>
+      {entry.data.callsign && (
+        <tr><th>Позывной</th><td>{entry.data.callsign}</td></tr>
+      )}
+      {entry.data.location && (
+        <tr><th>Место</th><td>{entry.data.location}</td></tr>
+      )}
+      {entry.data.qsos !== undefined && (
+        <tr><th>Связей</th><td>{entry.data.qsos}</td></tr>
+      )}
+      {entry.data.bands.length > 0 && (
+        <tr><th>Диапазоны</th><td>{entry.data.bands.join(', ')}</td></tr>
+      )}
+    </tbody>
+  </table>
+
+  <Content />
+</Base>

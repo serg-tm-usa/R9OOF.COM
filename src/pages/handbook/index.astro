@@ -1,0 +1,56 @@
+---
+import Base from '../../layouts/Base.astro';
+import { getCollection } from 'astro:content';
+import { formatDate } from '../../lib/format';
+
+const entries = await getCollection('handbook', ({ data }) => !data.draft);
+
+// Группируем по категории, внутри сортируем по названию.
+const byCategory = new Map<string, typeof entries>();
+for (const entry of entries) {
+  const list = byCategory.get(entry.data.category) ?? [];
+  list.push(entry);
+  byCategory.set(entry.data.category, list);
+}
+const categories = [...byCategory.entries()].sort((a, b) =>
+  a[0].localeCompare(b[0], 'ru')
+);
+---
+
+<Base
+  title="Инженерный справочник"
+  description="Мануалы оборудования, схемы, расчёты и рабочие заметки радиолюбителя."
+>
+  <h1>Инженерный справочник радиолюбителя</h1>
+  <p class="lede">
+    Мануалы на оборудование, схемы коммутации, расчёты и проверенные рабочие
+    заметки. Материалы разложены по категориям.
+  </p>
+
+  {categories.length === 0 ? (
+    <div class="placeholder">
+      <p><strong>Пока пусто.</strong></p>
+      <p>
+        Статьи лежат в <code>src/content/handbook/</code>. Поле <code>category</code>
+        во главе файла определяет, в какую группу попадёт материал.
+      </p>
+    </div>
+  ) : (
+    categories.map(([category, list]) => (
+      <section>
+        <h2>{category}</h2>
+        <ul class="grid">
+          {list
+            .sort((a, b) => a.data.title.localeCompare(b.data.title, 'ru'))
+            .map((entry) => (
+              <li class="card">
+                <h3><a href={`/handbook/${entry.id}`}>{entry.data.title}</a></h3>
+                <p>{entry.data.summary}</p>
+                <p class="meta">обновлено {formatDate(entry.data.updated)}</p>
+              </li>
+            ))}
+        </ul>
+      </section>
+    ))
+  )}
+</Base>
