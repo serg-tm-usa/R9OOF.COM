@@ -6,12 +6,10 @@ import Footer from '../components/Footer.astro';
 interface Props {
   title: string;
   description?: string;
-  noindex?: boolean;
 }
 
 const {
   title,
-  noindex = false,
   description = 'R9OOF — любительская радиостанция: DX-экспедиции, RDA, детская радиошкола, инженерный справочник.',
 } = Astro.props;
 
@@ -26,7 +24,6 @@ const fullTitle = title === 'R9OOF' ? title : `${title} — R9OOF`;
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <title>{fullTitle}</title>
     <meta name="description" content={description} />
-    {noindex && <meta name="robots" content="noindex" />}
     <link rel="canonical" href={new URL(Astro.url.pathname, Astro.site)} />
     <meta property="og:title" content={fullTitle} />
     <meta property="og:description" content={description} />
