@@ -25,6 +25,7 @@
 | T-06 | Чат «Настройка Claude» разбирает 12 кандидатов «рассмотреть» из C-5 (karpathy-skills, superpowers, ponytail, mattpocock/skills, addyosmani/agent-skills, best-practice, claude-hud, repomix, beads; taste-skill и playwright-mcp — проект сайта; oh-my-claudecode — humanizer) и даёт решение по каждому | docs/checks.md C-5 | Настройка Claude, сайт, humanizer | В C-5 у каждого «рассмотреть» заполнены «проверено» и «решение»; принятые внесены в «План установки» в ideas.md | checks.md, ideas.md | ожидает | среда 07.10.2026 |
 | T-04 | Передать в чат «Настройка Claude» видение «Разделение хост / сервер» для решения | docs/proposals/host-server-separation.md | этот чат → чат «Настройка Claude» | Чат «Настройка Claude» прочитал и записал решение у себя; сюда вернулся итог одной строкой в ideas.md | запись в ideas.md | ожидает | среда 07.10.2026 |
 | T-03 | Все проектные чаты рассматривают предложение «MCP как общая структура» и принимают решение | docs/proposals/mcp-common-structure.md | все чаты + владелец | Решение (да/нет/частично) и карта серверов записаны в ideas.md и в MEMORY каждого проекта | записи в файлах | ожидает | среда 07.10.2026 |
+| T-09 | Исполнители берут выбранные персоны The Agency из C-6 в свои агенты и чек-листы: Humanizer 2 (chief-of-staff, multi-agent-systems-architect, prompt-engineer, reality-checker, handoff-templates, book-co-author, research-synthesist, historian; каркас файла персоны как форма `CONTEXT.md`), сайт (aeo-foundations, seo-specialist, ai-citation-strategist, accessibility-auditor, evidence-collector, ui-finish-gate, persona-walkthrough, technical-writer), база логов (gis-qa, gis-spatial-data, gis-web-gis, gis-cartography, gis-analyst, database-optimizer), деплой (devops-automator, incident-response, workflow-architect, phase-4/5/6), Настройка Claude (code-reviewer, onboarding, git-workflow-master, minimal-change-engineer, master-plan-architect, mcp-builder, реестры divisions/tools) | docs/checks.md C-6 | все чаты | В `CONTEXT.md` агентов Humanizer 2 есть разделы 1, 4, 5, 7, 9 каркаса; в планах проектов отметка по каждой персоне из таблицы C-6: взято / отклонено с причиной | записи в планах, agents.md | ожидает | среда 07.10.2026 |
 
 ### B. Humanizer 2 (проект humanizer)
 
@@ -73,3 +74,4 @@
 | Дата | Кто | Что сверено | Расхождения |
 | --- | --- | --- | --- |
 | 2026-10-04 | этот чат | Список собран из ideas.md и humanizer2 | нет |
+| 2026-10-05 | этот чат | Добавлен T-09 по C-6 (The Agency); статусы остальных без изменений, исполнители ещё не начали | нет |
