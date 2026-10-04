@@ -22,8 +22,10 @@ docs/humanizer2/
   CONTROL.md         этот файл
   rules-ru.md        русские признаки §26–§51
   metrics.md         метрики M1–M15
-  agents.md          роли агентов
-  profiles/owner-r8pg.md
+  agents.md          роли агентов (v2)
+  risks.md           риски проекта (добавлен в опись 2026-10-05)
+  profiles/owner-r8pg.md   (отменён 2026-10-04, файл хранится)
+  profiles/authors-list.md (добавлен в опись 2026-10-05)
   profiles/public-domain.md
   profiles/described-only.md
   corpus/pair-01-to24/README.md
