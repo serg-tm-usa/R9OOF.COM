@@ -24,6 +24,7 @@ docs/humanizer2/
   metrics.md         метрики M1–M15
   agents.md          роли агентов (v2)
   risks.md           риски проекта (добавлен в опись 2026-10-05)
+  ars-academic-research-skills.md   разбор ARS: 37 приёмов для переноса, безопасность, порядок (добавлен 2026-10-05, T-52)
   profiles/owner-r8pg.md   (отменён 2026-10-04, файл хранится)
   profiles/authors-list.md (добавлен в опись 2026-10-05)
   profiles/public-domain.md
