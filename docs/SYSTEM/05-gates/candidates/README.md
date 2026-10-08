@@ -1,0 +1,3 @@
+# candidates
+
+См. `../README.md`.
